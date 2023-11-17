@@ -5,15 +5,22 @@ const router = express.Router()
 
 router.get('/', (req, res, next) => {
   Resources.getAll()
-  .then(
-    resources => {
-      res.json(resources)
-  })
+  .then( resources => {
+    res.json(resources)
+  }
+    
+  )  
   .catch(next)
 })
 
-router.post('/', (req, res, next) => {
-
+router.post('/', async (req, res, next) => {
+  try{
+    const resource = await Resources.add(req.body)
+    res.json(resource)
+  }
+  catch(err){
+    next(err)
+  }
 })
 
 module.exports = router

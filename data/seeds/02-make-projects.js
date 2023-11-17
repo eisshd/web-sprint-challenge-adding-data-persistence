@@ -9,10 +9,6 @@ const resources = [
   { resource_name: 'computer', resource_description: 'Windows PC' }
 ]
 
-const project_resources = [
-
-]
-
 const tasks = [
   { task_description: 'Do foo', project_id: 1 },
   { task_description: 'Do bar', task_notes: 'Use Postman!', project_id: 1 },
@@ -21,7 +17,6 @@ const tasks = [
 
 exports.seed = async function (knex) {
   await knex('projects').insert(projects)
-  await knex('resource').insert(resource)
-  await knex('project_resources').insert(project_resources)
-  await knex('tasks').insert(task)
+  await knex('resources').insert(resources)
+  await knex('tasks').insert(tasks)
 };

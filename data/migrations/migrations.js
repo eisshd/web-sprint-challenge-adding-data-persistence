@@ -4,7 +4,7 @@ exports.up = function (knex) {
       .createTable('projects', table => {
         table.increments('project_id')
         table.string('project_name', 200).notNullable().unique()
-        table.boolean('project_completed').notNullable().defaultTo(false)
+        table.boolean('project_completed').defaultTo(false)
         table.string('project_description', 200)
       })
 
@@ -18,7 +18,7 @@ exports.up = function (knex) {
         table.increments('task_id')
         table.string('task_description', 200).notNullable()
         table.string('task_notes', 200)
-        table.boolean('task_completed').notNullable().defaultTo(false)
+        table.boolean('task_completed').defaultTo(false)
         table.integer('project_id')
         .unsigned()
         .notNullable()
@@ -28,29 +28,10 @@ exports.up = function (knex) {
         .onUpdate('RESTRICT')
       })
 
-      .createTable('project_resources', table => {
-        table.increments('project_resources_id')
-        table.float('quantity').notNullable()
-        table.integer('task_id')
-        .unsigned()
-        .notNullable()
-        .references('task_id')
-        .inTable('task')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT')
-        table.integer('resource_id')
-        .unsigned()
-        .notNullable()
-        .references('resource_id')
-        .inTable('resource')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT')
-      })
   };
   
   exports.down = function (knex) {
     return knex.schema
-      .dropTableIfExists('project_resources')
       .dropTableIfExists('tasks')
       .dropTableIfExists('resources')
       .dropTableIfExists('projects')

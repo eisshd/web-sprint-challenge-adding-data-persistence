@@ -2,20 +2,24 @@
 const db = require('../../data/dbConfig')
 
 const getAll = () => {
-    // DO YOUR MAGIC
-    return db('tasks')
-  }
+  // DO YOUR MAGIC
+  const tasks = db('tasks as t')
+  return tasks
+} 
 
-const getById = () => {
-
+const getById = (id) => {
+  return db('tasks').where('task_id', id).first()
 }
 
-const insert = () => {
-
+const add = (tasks) => {
+  return db('tasks').insert(tasks)
+  .then(([id]) => {
+    return getById(id)
+  })
 }
 
 module.exports = {
     getAll,
     getById,
-    insert,
+    add,
 }
