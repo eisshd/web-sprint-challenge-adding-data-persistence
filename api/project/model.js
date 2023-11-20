@@ -5,7 +5,7 @@ const getAll = () => {
     // DO YOUR MAGIC
     const projects = db('projects as p')
     return projects
-  } 
+  }
 
 const getById = (id) => {
   return db('projects').where('project_id', id).first()
