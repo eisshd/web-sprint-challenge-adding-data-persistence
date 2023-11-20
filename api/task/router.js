@@ -7,12 +7,6 @@ const router = express.Router()
 
 router.get('/', async (req, res, next) => {
   try {
-    const arr = [
-      {
-        project_name: "",
-        project_description: ""
-      }
-    ]
     const tasks = await Tasks.getAll()
     tasks.map((el)=> {
         if(el.task_completed === 0 || !el.task_completed){
@@ -21,15 +15,6 @@ router.get('/', async (req, res, next) => {
           el.task_completed = true
         }
       })
-    tasks.forEach((tasks) => {
-      if(tasks.project_id){
-        const project = Projects.getById(tasks.project_id)
-        arr.push({
-          project_name: project.project_name,
-          project_description: project.project_description
-        })
-      }
-    })
     res.json(tasks)
 }
 catch(err){

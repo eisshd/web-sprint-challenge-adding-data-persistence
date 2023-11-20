@@ -4,6 +4,8 @@ const db = require('../../data/dbConfig')
 const getAll = () => {
   // DO YOUR MAGIC
   const tasks = db('tasks as t')
+  .leftJoin('projects as p', 't.project_id', 'p.project_id')
+  .select('t.*', 'p.project_description', 'p.project_name')
   return tasks
 } 
 
